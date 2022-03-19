@@ -30,6 +30,7 @@
     <table>
         <tr>
             <th>Name:</th>
+            <th>Room id:</th>
             <th>Size:</th>
             <th>Projector available:</th>
             <th>Room available for today:</th>
@@ -40,14 +41,22 @@
         {% for room in all_rooms %}
         <tr>
             <td><a href="{% url 'specific_room_view' room.id %}">{{ room.name }}</a></td> <!--name-->
+            <td>{{ room.id }}</td>
             <td>{{ room.size }}</td>
             <td>{{ room.projector_available }}</td>
-            <td>false</td>
+            {% if room.reserved %}
+                <td class="col-2" style="color:red;">Zarezerwowana</td>
+            {% else %}
+                <td class="col-2" style="color:green;">Dostępna</td>
+            {% endif %}
             <td><a href="{% url 'modify_room_view' room.id %}">edit</a></td> <!--edit-->
             <td><a href="{% url 'delete_room_view' room.id %}">delete</a></td> <!--delete-->
             <td><a href="{% url 'reserve_room_view' room.id %}">book it!</a></td> <!--Book it!-->
         </tr>
         {% endfor %}
     </table>
+    {% for reservation in reservation_info %}
+        <p>{{ reservation.date }} for room id = {{ reservation.room_id }}</p>
+    {% endfor %}
 </body>
 </html>

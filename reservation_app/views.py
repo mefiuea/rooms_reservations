@@ -50,8 +50,12 @@ class AllRoomsView(View):
         if not all_rooms:
             return HttpResponse('There is no rooms in data base')
 
+        for room in all_rooms:
+            reservation_dates = [reservation.date for reservation in room.reservations.all()]
+            room.reserved = date.today() in reservation_dates
+
         context = {
-            'all_rooms': all_rooms
+            'all_rooms': all_rooms,
         }
 
         return render(request, 'rooms_list_form.html', context=context)
