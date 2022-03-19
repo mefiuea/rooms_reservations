@@ -45,7 +45,7 @@
             <td>False</td>
             <td><a href="{% url 'modify_room_view' room.id %}">edit</a></td> <!--edit-->
             <td><a href="{% url 'delete_room_view' room.id %}">delete</a></td> <!--delete-->
-            <td><a href="{% url 'reserve_room_view' room.id %}">book it!</a></td>
+            <td><a href="{% url 'reserve_room_view' room.id %}">book it!</a></td> <!--Book it!-->
         </tr>
         {% endfor %}
     </table>

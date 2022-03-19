@@ -5,6 +5,17 @@
     <title>Room details</title>
 </head>
 <body>
-    <h1>Dotarlismy na strone z widokiem szczegolowym</h1>
+    <h1>Detail view of: {{ room.name }}, id: {{ room.id }}</h1>
+    <p>Name: {{ room.name }}</p>
+    <p>Size: {{ room.size }}</p>
+    <p>Projector availability: {{ room.projector_available }}</p>
+    <h4>This room is reserved for the following dates:</h4>
+    {% for info in reservation_info %}
+        <p>{{ info.date }} <i>comment:</i> {{ info.comment }}</p>
+    {% endfor %}
+    <h4>Options:</h4>
+    <p><td><a href="{% url 'modify_room_view' room.id %}">edit this room</a></td><p> <!--edit-->
+    <p><td><a href="{% url 'delete_room_view' room.id %}">delete this room</a></td><p> <!--delete-->
+    <p><td><a href="{% url 'reserve_room_view' room.id %}">book this room!</a></td><p> <!--Book it!-->
 </body>
 </html>

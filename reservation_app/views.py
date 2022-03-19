@@ -58,7 +58,13 @@ class AllRoomsView(View):
 
 class SpecificRoom(View):
     def get(self, request, room_id):
-        return render(request, 'specific_room_form.html')
+        room = Room.objects.get(pk=room_id)
+        reservation_info = ReservationStatus.objects.filter(room_id=room_id)
+        context = {
+            'room': room,
+            'reservation_info': reservation_info,
+        }
+        return render(request, 'specific_room_form.html', context=context)
 
 
 class ModifyRoom(View):
@@ -110,7 +116,6 @@ class ReserveRoom(View):
     def post(self, request, room_id):
         comment = request.POST.get('comment')
         date_from_url = request.POST.get('date')
-        specific_room = Room.objects.get(pk=room_id)
         reservations = ReservationStatus.objects.filter(room_id=room_id, date__exact=date_from_url)
 
         if len(reservations) >= 1:
