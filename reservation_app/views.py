@@ -127,6 +127,6 @@ class ReserveRoom(View):
             return HttpResponse('date is from the past!')
 
         # save given room to database
-        ReservationStatus.objects.create(date=date, comment=comment, room_id=room_id)
+        ReservationStatus.objects.create(date=date_from_url, comment=comment, room_id=room_id)
 
         return redirect(reverse('all_rooms_view'))
