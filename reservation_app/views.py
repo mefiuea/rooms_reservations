@@ -1,9 +1,11 @@
+from datetime import date
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
+from django.urls import reverse
 
 from reservation_app.models import Room, ReservationStatus
-from django.urls import reverse
 
 # Create your views here.
 
@@ -107,14 +109,24 @@ class ReserveRoom(View):
 
     def post(self, request, room_id):
         comment = request.POST.get('comment')
-        date = request.POST.get('date')
+        date_from_url = request.POST.get('date')
         specific_room = Room.objects.get(pk=room_id)
-        reservations = ReservationStatus.objects.filter(room_id=room_id, date__exact=date)
+        reservations = ReservationStatus.objects.filter(room_id=room_id, date__exact=date_from_url)
 
         if len(reservations) >= 1:
             return HttpResponse('Reservation for this day already exist!')
 
+        actual_date = date.today()
+        date_to_compare_str = date_from_url
+        year = int(date_to_compare_str[0:4])
+        month = int(date_to_compare_str[5:7])
+        day = int(date_to_compare_str[8:10])
+        date_to_compare = date(year, month, day)
+        dif = (date_to_compare - actual_date).days
+        if dif < 0:
+            return HttpResponse('date is from the past!')
+
         # save given room to database
-        ReservationStatus.objects.create(date=date, comment=comment)
+        ReservationStatus.objects.create(date=date, comment=comment, room_id=room_id)
 
         return redirect(reverse('all_rooms_view'))
