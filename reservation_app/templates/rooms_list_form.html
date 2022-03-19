@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rooms list</title>
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        border: 1px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+</head>
+<body>
+    <h1>Rooms list:</h1>
+    <table>
+        <tr>
+            <th>Name:</th>
+            <th>Size:</th>
+            <th>Projector available:</th>
+            <th>Room available:</th>
+            <th><!--Edit:--></th>
+            <th><!--Delete:--></th>
+            <th><!--Book it!:--></th>
+        </tr>
+        {% for room in all_rooms %}
+        <tr>
+            <td><a href="{% url 'specific_room_view' room.id %}">{{ room.name }}</a></td> <!--name-->
+            <td>{{ room.size }}</td>
+            <td>{{ room.projector_available }}</td>
+            <td>False</td>
+            <td><a href="{% url 'modify_room_view' room.id %}">edit</a></td> <!--edit-->
+            <td><a href="{% url 'delete_room_view' room.id %}">delete</a></td> <!--delete-->
+            <td><a href="{% url 'reserve_room_view' room.id %}">book it!</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
