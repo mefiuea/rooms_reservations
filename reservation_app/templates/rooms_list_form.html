@@ -32,7 +32,7 @@
             <th>Name:</th>
             <th>Size:</th>
             <th>Projector available:</th>
-            <th>Room available:</th>
+            <th>Room available for today:</th>
             <th><!--Edit:--></th>
             <th><!--Delete:--></th>
             <th><!--Book it!:--></th>
@@ -42,7 +42,7 @@
             <td><a href="{% url 'specific_room_view' room.id %}">{{ room.name }}</a></td> <!--name-->
             <td>{{ room.size }}</td>
             <td>{{ room.projector_available }}</td>
-            <td>False</td>
+            <td>false</td>
             <td><a href="{% url 'modify_room_view' room.id %}">edit</a></td> <!--edit-->
             <td><a href="{% url 'delete_room_view' room.id %}">delete</a></td> <!--delete-->
             <td><a href="{% url 'reserve_room_view' room.id %}">book it!</a></td> <!--Book it!-->

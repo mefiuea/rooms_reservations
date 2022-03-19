@@ -46,6 +46,7 @@ class AddRoomView(View):
 class AllRoomsView(View):
     def get(self, request):
         all_rooms = Room.objects.all()
+        reservations = ReservationStatus.objects.all()
         if not all_rooms:
             return HttpResponse('There is no rooms in data base')
 
