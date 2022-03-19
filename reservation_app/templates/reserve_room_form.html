@@ -19,5 +19,9 @@
         </label>
         <input type="submit" value="Book it!">
     </form>
+    <p><h4>This room is already booked for the following days:</h4></p>
+    {% for reserve in reservations %}
+        <p>{{ reserve.date }}</p>
+    {% endfor %}
 </body>
 </html>

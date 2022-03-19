@@ -46,7 +46,6 @@ class AddRoomView(View):
 class AllRoomsView(View):
     def get(self, request):
         all_rooms = Room.objects.all()
-        reservations = ReservationStatus.objects.all()
         if not all_rooms:
             return HttpResponse('There is no rooms in data base')
 
@@ -115,7 +114,12 @@ class DeleteRoom(View):
 class ReserveRoom(View):
     def get(self, request, room_id):
         room = Room.objects.get(pk=room_id)
-        context = {'room': room}
+        actual_date = date.today().strftime('%Y-%m-%d')
+        reservations = ReservationStatus.objects.filter(room_id=room_id, date__gte=actual_date)
+        context = {
+            'room': room,
+            'reservations': reservations,
+        }
         return render(request, 'reserve_room_form.html', context=context)
 
     def post(self, request, room_id):
