@@ -45,9 +45,9 @@
             <td>{{ room.size }}</td>
             <td>{{ room.projector_available }}</td>
             {% if room.reserved %}
-                <td class="col-2" style="color:red;">Zarezerwowana</td>
+                <td class="col-2" style="color:red;">Reserved</td>
             {% else %}
-                <td class="col-2" style="color:green;">Dostępna</td>
+                <td class="col-2" style="color:green;">Available</td>
             {% endif %}
             <td><a href="{% url 'modify_room_view' room.id %}">edit</a></td> <!--edit-->
             <td><a href="{% url 'delete_room_view' room.id %}">delete</a></td> <!--delete-->
