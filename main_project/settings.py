@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'main_project.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'reservations',
+        'NAME': '',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'postgres',
+        'USER': '',
         'PASSWORD': '',
     }
 }
