@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9goj9x5cy%6lu$p(+2%$zkv8)t6c0$cv*nks0%r$1w^b4iwro%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+ALLOWED_HOSTS = ['backend', '127.0.0.1', 'localhost', 'rooms-reservations.herokuapp.com', 'https://rooms-reservations.herokuapp.com']
+INTERNAL_IPS = ALLOWED_HOSTS
 
 
 # Application definition
@@ -55,7 +61,7 @@ ROOT_URLCONF = 'main_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,10 +83,10 @@ WSGI_APPLICATION = 'main_project.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': '',
+        'NAME': os.environ.get('POSTGRES_DATABASE_NAME'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': os.environ.get('POSTGRES_DATABASE_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_USER_PASSWORD'),
     }
 }
 
@@ -120,8 +126,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_heroku.settings(locals())

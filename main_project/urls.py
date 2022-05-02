@@ -20,7 +20,7 @@ from reservation_app.views import AddRoomView, MainPage, AllRoomsView, SpecificR
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('room/', MainPage.as_view(), name='main_page_view'),
+    path('', MainPage.as_view(), name='main_page_view'),
     path('room/new/', AddRoomView.as_view(), name='add_room_view'),
     path('room/all/', AllRoomsView.as_view(), name='all_rooms_view'),
     path('room/<int:room_id>/', SpecificRoom.as_view(), name='specific_room_view'),

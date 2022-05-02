@@ -1,21 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Room details</title>
-</head>
-<body>
-    <h1>Detail view of: {{ room.name }}, id: {{ room.id }}</h1>
-    <p>Name: {{ room.name }}</p>
-    <p>Size: {{ room.size }}</p>
-    <p>Projector availability: {{ room.projector_available }}</p>
-    <h4>This room is reserved for the following dates:</h4>
-    {% for info in reservation_info %}
-        <p>{{ info.date }} <i>comment:</i> {{ info.comment }}</p>
-    {% endfor %}
-    <h4>Options:</h4>
-    <p><td><a href="{% url 'modify_room_view' room.id %}">edit this room</a></td><p> <!--edit-->
-    <p><td><a href="{% url 'delete_room_view' room.id %}">delete this room</a></td><p> <!--delete-->
-    <p><td><a href="{% url 'reserve_room_view' room.id %}">book this room!</a></td><p> <!--Book it!-->
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Modify room{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mb-3">Detail view of: {{ room.name }}, id: {{ room.id }}</h1>
+        <div class="d-flex">
+            <p class="fw-bold">Name:&nbsp;</p>
+            <i>{{ room.name }}</i>
+        </div>
+        <div class="d-flex">
+            <p class="fw-bold">Size:&nbsp;</p>
+            <i>{{ room.size }}</i>
+        </div>
+        <div class="d-flex">
+            <p class="fw-bold">Projector availability:&nbsp;</p>
+            <i>{{ room.projector_available }}</i>
+        </div>
+        <h4 class="mt-4">This room is reserved for the following dates:</h4>
+        {% for info in reservation_info %}
+            <p>{{ info.date }} <i>comment:</i> {{ info.comment }}</p>
+        {% endfor %}
+        <h4 class="mt-4">Options:</h4>
+        <p>
+        <td><a href="{% url 'modify_room_view' room.id %}">edit this room</a></td>
+        <p> <!--edit-->
+        <p>
+        <td><a href="{% url 'delete_room_view' room.id %}">delete this room</a></td>
+        <p> <!--delete-->
+        <p>
+        <td><a href="{% url 'reserve_room_view' room.id %}">book this room!</a></td>
+        <p> <!--Book it!-->
+        <p>
+        <td><a href="{% url 'main_page_view' %}">Go back to main page</a></td>
+        <p>
+        <p>
+        <td><a href="{% url 'all_rooms_view' %}">Go back to rooms list</a></td>
+        <p>
+    </div>
+{% endblock %}
