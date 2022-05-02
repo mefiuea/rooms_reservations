@@ -20,6 +20,15 @@ pip install -r requirements.txt
 
 ```
 
+Set all environment variables. 
+Go to the env folder, then create an .env file and copy the contents of the .env-default file into it. 
+Once this is done, fill the .env file with the appropriate data. 
+In the terminal, load the environment variables from this file with the command:
+
+```
+source env/.env
+```
+
 Change DEBUG mode in settings.py:
 
 ```
