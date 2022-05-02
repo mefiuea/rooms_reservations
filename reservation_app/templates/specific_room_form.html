@@ -32,5 +32,11 @@
         <p>
         <td><a href="{% url 'reserve_room_view' room.id %}">book this room!</a></td>
         <p> <!--Book it!-->
+        <p>
+        <td><a href="{% url 'main_page_view' %}">Go back to main page</a></td>
+        <p>
+        <p>
+        <td><a href="{% url 'all_rooms_view' %}">Go back to rooms list</a></td>
+        <p>
     </div>
 {% endblock %}
