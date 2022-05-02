@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +28,7 @@ SECRET_KEY = 'django-insecure-9goj9x5cy%6lu$p(+2%$zkv8)t6c0$cv*nks0%r$1w^b4iwro%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['backend', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -78,10 +80,10 @@ WSGI_APPLICATION = 'main_project.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'reservations',
+        'NAME': os.environ.get('POSTGRES_DATABASE_NAME'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'postgres',
-        'PASSWORD': '',
+        'USER': os.environ.get('POSTGRES_DATABASE_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_USER_PASSWORD'),
     }
 }
 
@@ -135,3 +137,5 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+django_heroku.settings(locals())
