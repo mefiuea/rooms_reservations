@@ -28,7 +28,10 @@ SECRET_KEY = 'django-insecure-9goj9x5cy%6lu$p(+2%$zkv8)t6c0$cv*nks0%r$1w^b4iwro%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 ALLOWED_HOSTS = ['backend', '127.0.0.1', 'localhost', 'rooms-reservations.herokuapp.com', 'https://rooms-reservations.herokuapp.com']
+INTERNAL_IPS = ALLOWED_HOSTS
 
 
 # Application definition
