@@ -8,9 +8,9 @@ The website also gives access to a list of all created rooms from where they can
 First, clone the repository to your local machine:
 
 ```
-git clone git@github.com:mefiuea/ssa.git
+git clone git@github.com:mefiuea/rooms_reservations.git
 or
-https://github.com/mefiuea/ssa.git
+https://github.com/mefiuea/rooms_reservations.git
 ```
 
 Install the requirements:
