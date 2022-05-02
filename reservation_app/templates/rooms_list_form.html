@@ -1,62 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Rooms list</title>
-    <style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
+{% extends 'base.html' %}
+{% load static %}
 
-    th {
-        border: 1px solid #dddddd;
-        text-align: center;
-        padding: 8px;
-    }
+{% block title %}Rooms list{% endblock %}
 
-    td {
-        text-align: center;
-    }
-
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
-    </style>
-</head>
-<body>
-    <h1>Rooms list:</h1>
-    <table>
-        <tr>
-            <th>Name:</th>
-            <th>Room id:</th>
-            <th>Size:</th>
-            <th>Projector available:</th>
-            <th>Room available for today:</th>
-            <th><!--Edit:--></th>
-            <th><!--Delete:--></th>
-            <th><!--Book it!:--></th>
-        </tr>
+{% block content %}
+    <div class="container">
+        <h1>Rooms list:</h1>
+        <ul class="list-group list-group-horizontal text-center">
+            <li class="list-group-item text-info" style="width: 200px">Name:</li>
+            <li class="list-group-item text-info" style="width: 110px">Room id:</li>
+            <li class="list-group-item text-info" style="width: 80px">Size:</li>
+            <li class="list-group-item text-info" style="width: 200px">Projector available:</li>
+            <li class="list-group-item text-info" style="width: 250px">Room available for today:</li>
+            <li class="list-group-item text-info" style="width: 80px"></li>
+            <li class="list-group-item text-info" style="width: 100px"></li>
+            <li class="list-group-item text-info" style="width: 100px"></li>
+        </ul>
         {% for room in all_rooms %}
-        <tr>
-            <td><a href="{% url 'specific_room_view' room.id %}">{{ room.name }}</a></td> <!--name-->
-            <td>{{ room.id }}</td>
-            <td>{{ room.size }}</td>
-            <td>{{ room.projector_available }}</td>
-            {% if room.reserved %}
-                <td class="col-2" style="color:red;">Reserved</td>
-            {% else %}
-                <td class="col-2" style="color:green;">Available</td>
-            {% endif %}
-            <td><a href="{% url 'modify_room_view' room.id %}">edit</a></td> <!--edit-->
-            <td><a href="{% url 'delete_room_view' room.id %}">delete</a></td> <!--delete-->
-            <td><a href="{% url 'reserve_room_view' room.id %}">book it!</a></td> <!--Book it!-->
-        </tr>
+            <ul class="list-group list-group-horizontal text-center">
+                <li class="list-group-item" style="width: 200px"><a
+                        href="{% url 'specific_room_view' room.id %}">{{ room.name }}</a></li>
+                <li class="list-group-item" style="width: 110px">{{ room.id }}</li>
+                <li class="list-group-item" style="width: 80px">{{ room.size }}</li>
+                {% if room.projector_available %}
+                    <li class="list-group-item text-success" style="width: 200px">True</li>
+                {% else %}
+                    <li class="list-group-item text-danger" style="width: 200px">False</li>
+                {% endif %}
+                {% if room.reserved %}
+                    <li class="list-group-item text-danger" style="width: 250px">Reserved</li>
+                {% else %}
+                    <li class="list-group-item text-success" style="width: 250px">Available</li>
+                {% endif %}
+                <li class="list-group-item" style="width: 80px"><a href="{% url 'modify_room_view' room.id %}">edit</a>
+                </li>
+                <li class="list-group-item" style="width: 100px"><a
+                        href="{% url 'delete_room_view' room.id %}">delete</a></li>
+                <li class="list-group-item" style="width: 100px"><a href="{% url 'reserve_room_view' room.id %}">book
+                    it!</a>
+                </li>
+            </ul>
         {% endfor %}
-    </table>
-    {% for reservation in reservation_info %}
-        <p>{{ reservation.date }} for room id = {{ reservation.room_id }}</p>
-    {% endfor %}
-</body>
-</html>
+    </div>
+{% endblock %}
