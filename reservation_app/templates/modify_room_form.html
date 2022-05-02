@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Modify room</title>
-</head>
-<body>
-    <h1>Modify room: {{ room.name }}, id: {{ room.id }}</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label>
-            Name:
-            <input type="text" name="roomName" value="{{ room.name }}">
-        </label>
-        <label>
-            <p>
-            Room size:
-            <input type="number" name="roomSize" min="1" max="50" value="{{ room.size }}">
-            </p>
-        </label>
-        <label>
-            <p>
-            availability of projector:
-                {% if room.projector_available %}
-                    <input type="checkbox" id="projectorAvailableCheckBox" name="projectorAvailable" value="True" checked>
-                {% elif not room.projector_available %}
-                    <input type="checkbox" id="projectorAvailableCheckBox" name="projectorAvailable" value="True">
-                {% endif %}
-            </p>
-        </label>
-        <input type="submit" value="Save">
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Modify room{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Modify room: {{ room.name }}, id: {{ room.id }}</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="nameField" class="form-label">Name:</label>
+                <input type="text" name="roomName" placeholder="write name" class="form-control" id="nameField"
+                       value="{{ room.name }}" style="width: 280px">
+            </div>
+            <div class="mb-3">
+                <label for="roomSizeField" class="form-label">Room size:</label>
+                <input type="number" name="roomSize" min="1" max="50" class="form-control" id="roomSizeField"
+                       value="{{ room.size }}" style="width: 80px">
+            </div>
+            <div class="mb-3">
+                <label for="projectorAvailableCheckBox" class="form-label">availability of projector:</label>
+                <input type="checkbox" name="projectorAvailable" id="projectorAvailableCheckBox" value="True"
+                       {% if room.projector_available %}checked{% endif %}>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+        <a href="{% url 'all_rooms_view' %}">Go back to rooms list</a>
+    </div>
+{% endblock %}

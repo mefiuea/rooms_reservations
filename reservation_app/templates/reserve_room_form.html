@@ -1,27 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Book it!</title>
-</head>
-<body>
-    <h1>Now you are trying to booked room: {{ room.name }}, id: {{ room.id }}</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        <label>
-            Comment:
-            <input type="text" name="comment" placeholder="Put your comment here" value="">
-        </label>
-            <p>
-            Date:
-            <input type="date" name="date" value="">
-            </p>
-        </label>
-        <input type="submit" value="Book it!">
-    </form>
-    <p><h4>This room is already booked for the following days:</h4></p>
-    {% for reserve in reservations %}
-        <p>{{ reserve.date }}</p>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Modify room{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Now you are trying to booked room: {{ room.name }}, id: {{ room.id }}</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="commentField" class="form-label">Comment:</label>
+                <input type="text" name="comment" placeholder="Put your comment here" class="form-control"
+                       id="commentField" value="">
+            </div>
+            <div class="mb-3">
+                <label for="dateField" class="form-label">Date:</label>
+                <input type="date" name="date" class="form-control" id="dateField" value="" style="width: 110px">
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Book it!</button>
+            </div>
+        </form>
+        <a href="{% url 'all_rooms_view' %}">Go back to rooms list</a>
+        <p class="mt-5"><h6>This room is already booked for the following days:</h6></p>
+        <ul class="list-group">
+            {% for reserve in reservations %}
+                <li class="list-group-item">{{ reserve.date }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
