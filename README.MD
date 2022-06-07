@@ -1,5 +1,5 @@
 # Rooms reservation app
-####This is a demo application. The application was created to improve skills in web application development. It was created in Python language using Django framework.
+#### This is a demo application. The application was created to improve skills in web application development. It was created in Python language using Django framework.
 The application allows to create rooms with names. Give them a size and decide if a projector is available in the room.
 The website also gives access to a list of all created rooms from where they can be edited, deleted and booked for a given day.
 
